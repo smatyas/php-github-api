@@ -145,6 +145,47 @@ class User extends AbstractApi
     }
 
     /**
+     * Get the repositories that are accessible to the authenticated user.
+     *
+     * @link http://developer.github.com/v3/repos/
+     *
+     * @param string $visibility  the visibility of the repositories
+     * @param string $affiliation the user affiliation
+     * @param string $type        role in the repository
+     * @param string $sort        sort by
+     * @param string $direction   direction of sort, asc or desc
+     *
+     * @return array list of the user repositories
+     */
+    public function ownRepositories(
+        $visibility = null,
+        $affiliation = null,
+        $type = null,
+        $sort = null,
+        $direction = null
+    ) {
+        $parameters = array();
+
+        if ($visibility !== null) {
+            $parameters['visibility'] = $visibility;
+        }
+        if ($affiliation !== null) {
+            $parameters['affiliation'] = $affiliation;
+        }
+        if ($type !== null) {
+            $parameters['type'] = $type;
+        }
+        if ($sort !== null) {
+            $parameters['sort'] = $sort;
+        }
+        if ($direction !== null) {
+            $parameters['direction'] = $direction;
+        }
+
+        return $this->get('/user/repos', $parameters);
+    }
+
+    /**
      * Get the repositories of a user.
      *
      * @link http://developer.github.com/v3/repos/
